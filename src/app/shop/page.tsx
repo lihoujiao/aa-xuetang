@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "订阅商店" };
+export const metadata: Metadata = pageMeta({
+  title: "订阅商店",
+  description: "对照参考价选择月卡，再回到兑换页绑定到自己的账号。",
+  path: "/shop",
+});
 
 const plans = [
   ["轻量月卡", "¥109", "约合市场参考 ¥148", "适合每天整理材料"],
