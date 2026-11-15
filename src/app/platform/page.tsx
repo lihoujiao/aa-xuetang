@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "工作台" };
+export const metadata: Metadata = pageMeta({
+  title: "工作台说明",
+  description: "对话、创作、文件和学习放在同一条侧栏里，方便接着改昨天的材料。",
+  path: "/platform",
+});
 
 export default function PlatformPage() {
   return (

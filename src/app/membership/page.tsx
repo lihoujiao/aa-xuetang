@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
 import { solutions } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "会员权益" };
+export const metadata: Metadata = pageMeta({
+  title: "会员权益",
+  description: "基础会员覆盖课程和答疑，进阶会员再加上推广资格和供给优惠。",
+  path: "/membership",
+});
 
 const benefits = [
   ["会员课程", "按章节学，有效期内新课继续开放。"],

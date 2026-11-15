@@ -1,8 +1,20 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Crown, GraduationCap } from "lucide-react";
+import { JsonLd } from "@/components/json-ld";
 import { MarketingShell } from "@/components/shell";
 import { articles, events, solutions } from "@/lib/content";
+import { pageMeta, siteName, siteUrl } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  ...pageMeta({
+    title: "把眼前的事练会",
+    description: "从手头的一件事开始，和同路的人把练习做成能看的结果。",
+    path: "/",
+  }),
+  title: { absolute: "把眼前的事练会｜AA 学堂" },
+};
 
 const benefits = [
   ["会员课程", "有效期内按课表学习，新课上线后继续开放。"],
@@ -16,6 +28,26 @@ const benefits = [
 export default function HomePage() {
   return (
     <MarketingShell>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              name: siteName,
+              url: `${siteUrl}/`,
+              description: "从手头的一件事开始，按章节把练习做成能看的结果。",
+              inLanguage: "zh-CN",
+            },
+            {
+              "@type": "Organization",
+              name: siteName,
+              url: `${siteUrl}/`,
+              description: "面向个人练习的中文学习站，课表、文章和活动放在一起。",
+            },
+          ],
+        }}
+      />
       <section className="mx-auto max-w-5xl px-4 pb-6 pt-12 text-center md:pt-16">
         <p className="inline-flex rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-[#7A5AA8]">
           工作里用得上，生活里也留一点余量

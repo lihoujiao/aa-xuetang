@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
 import { faqs } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "价格方案" };
+export const metadata: Metadata = pageMeta({
+  title: "价格方案",
+  description: "会员与平台四档方案的标价写在页面上，这里不产生订单。",
+  path: "/pricing",
+});
 
 const plans = [
   {
