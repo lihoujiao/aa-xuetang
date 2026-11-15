@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingShell } from "@/components/shell";
 import { findSolution, solutions } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return solutions.map((item) => ({ slug: item.slug }));
@@ -10,7 +11,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: findSolution(slug)?.title ?? "供给" };
+  const item = findSolution(slug);
+  return pageMeta({
+    title: item?.title ?? "供给",
+    description: item?.summary ?? "一项可以对照价格查看的供给。",
+    path: `/solutions/${slug}`,
+  });
 }
 
 export default async function SolutionPage({ params }: { params: Promise<{ slug: string }> }) {

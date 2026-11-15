@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "技能包" };
+export const metadata: Metadata = pageMeta({
+  title: "技能包",
+  description: "用检查单和调用说明，让桌面上的助手按任务执行，而不是再收藏一段提示。",
+  path: "/skills",
+});
 
 export default function SkillsPage() {
   return (

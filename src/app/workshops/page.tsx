@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
 import { events } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "实战培训" };
+export const metadata: Metadata = pageMeta({
+  title: "实战培训",
+  description: "带着一个已经说得清的任务来，先看场次安排再决定要不要参加。",
+  path: "/workshops",
+});
 
 export default function WorkshopsPage() {
   return (
