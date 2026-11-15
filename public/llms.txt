@@ -1,0 +1,21 @@
+# AA 学堂
+
+> 从手头的一件事开始，按自己的节奏把练习做成能看的结果。
+
+规范地址：https://xuetang.fde100.com.cn
+
+## 关键页面
+
+- [首页](https://xuetang.fde100.com.cn/)：学堂入口，汇总会员、课表和近期活动。
+- [课程](https://xuetang.fde100.com.cn/courses)：按章节排列的学习页，可在列表和平铺之间切换。
+- [学习路径](https://xuetang.fde100.com.cn/learn)：先看清目标，再选课程、文章或活动作为下一步。
+- [文章](https://xuetang.fde100.com.cn/articles)：已发布的图文教程、活动记录和说明，可按分类筛选。
+- [活动](https://xuetang.fde100.com.cn/events)：线下场次的时间、地点、价格和剩余席位。
+- [关于](https://xuetang.fde100.com.cn/about)：学堂在做什么，以及怎样联系。
+
+## 也可继续看
+
+- [实战培训](https://xuetang.fde100.com.cn/workshops)：带着一个具体任务来的线下练习说明。
+- [会员权益](https://xuetang.fde100.com.cn/membership)：基础会员和进阶会员各自包含什么。
+- [精选供给](https://xuetang.fde100.com.cn/solutions)：把市场参考价和会员价放在一起的供给目录。
+- [价格方案](https://xuetang.fde100.com.cn/pricing)：会员与平台方案的标价说明。

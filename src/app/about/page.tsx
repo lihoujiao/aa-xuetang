@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
 import { brand } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "关于我们" };
+export const metadata: Metadata = pageMeta({
+  title: "关于我们",
+  description: "AA 学堂把课表、文章和线下场次收在一起，方便从一件具体任务练起。",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

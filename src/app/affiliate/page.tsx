@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "推广计划" };
+export const metadata: Metadata = pageMeta({
+  title: "推广计划",
+  description: "只有被邀请的人完成符合规则的支付，才会记入佣金。",
+  path: "/affiliate",
+});
 
 export default function AffiliatePage() {
   return (
