@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProsePage } from "@/components/prose-page";
+import { pageMeta } from "@/lib/seo";
 
 const docs: Record<string, { title: string; lede: string; sections: { heading: string; body: string[] }[] }> = {
   terms: {
@@ -42,7 +43,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: docs[slug]?.title ?? "协议" };
+  const doc = docs[slug];
+  return pageMeta({
+    title: doc?.title ?? "协议",
+    description: doc?.lede ?? "本站的说明文本。",
+    path: `/legal/${slug}`,
+  });
 }
 
 export default async function LegalPage({ params }: { params: Promise<{ slug: string }> }) {

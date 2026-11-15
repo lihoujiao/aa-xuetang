@@ -2,9 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
 import { chapters, kindLabel } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import { formatClock } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "学习路径" };
+export const metadata: Metadata = pageMeta({
+  title: "学习路径",
+  description: "先看清要解决的事，再从已开放的课、文章和活动里选下一步。",
+  path: "/learn",
+});
 
 const steps = [
   ["01", "先看清能做什么", "从一节认识课开始，选一个希望交给工具的具体问题。", "/courses"],
