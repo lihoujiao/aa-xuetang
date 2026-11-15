@@ -3,8 +3,13 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { MarketingShell } from "@/components/shell";
 import { ArticleBrowser } from "@/components/article-browser";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "文章" };
+export const metadata: Metadata = pageMeta({
+  title: "文章",
+  description: "已发布的图文教程、活动记录和学堂说明，每篇都能点进正文。",
+  path: "/articles",
+});
 
 export default function ArticlesPage() {
   return (
@@ -20,13 +25,12 @@ export default function ArticlesPage() {
           </p>
         </div>
         <div className="justify-self-end">
-          {/* decorative */}
           <Link href="/courses" className="text-sm font-semibold text-[#5C2B92]">
             去课表看看 →
           </Link>
         </div>
       </section>
-      <Suspense fallback={null}>
+      <Suspense fallback={<p className="mx-auto max-w-6xl px-4 pb-16 text-sm text-[#6D5B82]">正在整理文章…</p>}>
         <ArticleBrowser />
       </Suspense>
     </MarketingShell>

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/json-ld";
 import { MarketingShell } from "@/components/shell";
 import { articles, findArticle } from "@/lib/content";
+import { absoluteUrl, pageMeta, siteName, siteUrl } from "@/lib/seo";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -14,15 +16,39 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: findArticle(slug)?.title ?? "文章" };
+  const article = findArticle(slug);
+  return pageMeta({
+    title: article?.title ?? "文章",
+    description: article?.excerpt ?? "一篇可以对照着做的说明。",
+    path: `/articles/${slug}`,
+    type: "article",
+  });
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = findArticle(slug);
   if (!article) notFound();
+  const published = article.date.replaceAll("/", "-");
   return (
     <MarketingShell>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: article.title,
+          description: article.excerpt,
+          datePublished: published,
+          inLanguage: "zh-CN",
+          url: absoluteUrl(`/articles/${article.slug}`),
+          author: { "@type": "Person", name: article.author },
+          publisher: {
+            "@type": "Organization",
+            name: siteName,
+            url: `${siteUrl}/`,
+          },
+        }}
+      />
       <article className="mx-auto max-w-3xl px-4 py-12">
         <Link href="/articles" className="text-sm font-semibold text-[#5C2B92]">
           ← 文章列表
