@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f3fb;
+  --foreground: #1a1228;
+  --ink: #38254f;
+  --primary: #5c2b92;
+  --muted: #6d5b82;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-noto), "WenQuanYi Micro Hei", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(196, 176, 224, 0.45) 1px, transparent 0) 0 0 / 22px 22px,
+    linear-gradient(180deg, #f7f4fb 0%, #f4f0fa 40%, #f7f4fb 100%);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: #e7d8f8;
+}
