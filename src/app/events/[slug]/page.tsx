@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MarketingShell } from "@/components/shell";
 import { EventSignup } from "@/components/event-signup";
 import { events, findEvent } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return events.map((event) => ({ slug: event.slug }));
@@ -15,7 +16,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: findEvent(slug)?.title ?? "活动" };
+  const event = findEvent(slug);
+  return pageMeta({
+    title: event?.title ?? "活动",
+    description: event
+      ? `${event.start}，${event.place}，${event.price}。`
+      : "一场可以报名查看的线下活动。",
+    path: `/events/${slug}`,
+  });
 }
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {

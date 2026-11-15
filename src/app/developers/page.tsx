@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "开发者" };
+export const metadata: Metadata = pageMeta({
+  title: "开发者",
+  description: "把模型、自有接口或已有流程接到同一个对话入口时要守住的边界。",
+  path: "/developers",
+});
 
 export default function DevelopersPage() {
   return (

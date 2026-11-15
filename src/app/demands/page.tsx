@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
 import { demands } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "需求" };
+export const metadata: Metadata = pageMeta({
+  title: "需求",
+  description: "正在审核的练习需求示例，说明问题、城市和预算范围。",
+  path: "/demands",
+});
 
 export default function DemandsPage() {
   return (

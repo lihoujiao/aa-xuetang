@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "企业落地" };
+export const metadata: Metadata = pageMeta({
+  title: "企业落地",
+  description: "先找值得做的场景，再接到真实流程里，并用结果而不是演示效果验收。",
+  path: "/enterprise",
+});
 
 export default function EnterprisePage() {
   return (
