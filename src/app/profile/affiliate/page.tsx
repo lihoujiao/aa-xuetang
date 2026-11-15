@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { MarketingShell } from "@/components/shell";
 import { Gate } from "@/components/gate";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "推广面板" };
+export const metadata: Metadata = pageMeta({
+  title: "推广面板",
+  description: "登录后查看邀请记录。没有符合规则的支付时，佣金为零。",
+  path: "/profile/affiliate",
+});
 
 export default function ProfileAffiliatePage() {
   return (

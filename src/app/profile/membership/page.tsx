@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { MarketingShell } from "@/components/shell";
 import { Gate } from "@/components/gate";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "我的会员" };
+export const metadata: Metadata = pageMeta({
+  title: "我的会员",
+  description: "查看当前称呼是否已开通会员。演示环境不会生成订单。",
+  path: "/profile/membership",
+});
 
 export default function MembershipAccountPage() {
   return (

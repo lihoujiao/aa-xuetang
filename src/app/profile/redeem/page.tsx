@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
 import { Gate } from "@/components/gate";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "兑换码" };
+export const metadata: Metadata = pageMeta({
+  title: "兑换码",
+  description: "课程邀请码在课表上，订阅兑换在商店页完成格式检查。",
+  path: "/profile/redeem",
+});
 
 export default function ProfileRedeemPage() {
   return (

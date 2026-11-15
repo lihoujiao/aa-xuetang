@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { MarketingShell } from "@/components/shell";
 import { Gate } from "@/components/gate";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "我的钱包" };
+export const metadata: Metadata = pageMeta({
+  title: "我的钱包",
+  description: "查看演示积分余额。充值不会打开支付。",
+  path: "/profile/wallet",
+});
 
 export default function WalletPage() {
   return (
