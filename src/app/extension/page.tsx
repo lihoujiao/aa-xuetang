@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { ProsePage } from "@/components/prose-page";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "浏览器侧栏" };
+export const metadata: Metadata = pageMeta({
+  title: "浏览器侧栏",
+  description: "说明怎样把学堂留在浏览器侧栏，并给出改用网页版的入口。",
+  path: "/extension",
+});
 
 export default function ExtensionPage() {
   return (

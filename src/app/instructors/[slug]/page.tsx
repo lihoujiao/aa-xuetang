@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MarketingShell } from "@/components/shell";
 import { chapters, findInstructor, instructors } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return instructors.map((item) => ({ slug: item.slug }));
@@ -10,7 +11,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: findInstructor(slug)?.name ?? "讲师" };
+  const person = findInstructor(slug);
+  return pageMeta({
+    title: person?.name ?? "讲师",
+    description: person?.focus ?? "一位公开介绍授课方向的讲师。",
+    path: `/instructors/${slug}`,
+  });
 }
 
 export default async function InstructorPage({ params }: { params: Promise<{ slug: string }> }) {

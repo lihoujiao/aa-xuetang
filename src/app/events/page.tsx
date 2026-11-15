@@ -3,8 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
 import { events } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "线下活动" };
+export const metadata: Metadata = pageMeta({
+  title: "线下活动",
+  description: "查看即将开始和已经结束的场次，包含时间、地点、价格和剩余席位。",
+  path: "/events",
+});
 
 export default function EventsPage() {
   const upcoming = events.filter((event) => event.status !== "已结束");

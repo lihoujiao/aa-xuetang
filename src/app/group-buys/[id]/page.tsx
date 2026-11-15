@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/components/shell";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "团购演示" };
+export const metadata: Metadata = pageMeta({
+  title: "团购演示",
+  description: "三人成团的标价说明。这里不创建订单，也不开始扣款。",
+  path: "/group-buys/demo",
+});
 
 export function generateStaticParams() {
   return [{ id: "demo" }];
