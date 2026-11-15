@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { AppShell } from "@/components/app-shell";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "数据" };
+export const metadata: Metadata = pageMeta({
+  title: "数据",
+  description: "用一周的练习分钟和完成课时，看自己走到了哪一节。",
+  path: "/dashboard",
+});
 
 const bars = [40, 55, 32, 70, 48, 80, 36];
 
