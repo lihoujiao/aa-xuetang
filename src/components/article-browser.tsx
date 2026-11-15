@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { articles } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -16,13 +16,12 @@ const topics = [
 ];
 
 export function ArticleBrowser() {
-  const searchParams = useSearchParams();
-  const initialTopic = searchParams.get("topic") ?? undefined;
-  const initialQuery = searchParams.get("q") ?? undefined;
-  const initial = topics.some((item) => item.id === initialTopic) ? initialTopic! : "all";
-  const [topic, setTopic] = useState(initial);
-  const [query, setQuery] = useState(initialQuery ?? "");
-  const [draft, setDraft] = useState(initialQuery ?? "");
+  const params = useSearchParams();
+  const router = useRouter();
+  const topicParam = params.get("topic");
+  const topic = topics.some((item) => item.id === topicParam) ? topicParam! : "all";
+  const query = params.get("q") ?? "";
+  const [draft, setDraft] = useState(query);
 
   const list = useMemo(() => {
     return articles.filter((article) => {
@@ -33,13 +32,21 @@ export function ArticleBrowser() {
     });
   }, [topic, query]);
 
+  function pushQuery(nextTopic: string, nextQuery: string) {
+    const search = new URLSearchParams();
+    if (nextTopic !== "all") search.set("topic", nextTopic);
+    if (nextQuery.trim()) search.set("q", nextQuery.trim());
+    const qs = search.toString();
+    router.replace(qs ? `/articles?${qs}` : "/articles", { scroll: false });
+  }
+
   return (
     <section className="mx-auto max-w-6xl px-4 pb-16">
       <form
         className="flex gap-2 rounded-[28px] bg-white p-2 shadow-sm"
         onSubmit={(event) => {
           event.preventDefault();
-          setQuery(draft);
+          pushQuery(topic, draft);
         }}
       >
         <Input
@@ -56,7 +63,7 @@ export function ArticleBrowser() {
           <button
             key={item.id}
             type="button"
-            onClick={() => setTopic(item.id)}
+            onClick={() => pushQuery(item.id, query)}
             className={cn(
               "rounded-full px-3 py-1.5 text-sm font-semibold",
               topic === item.id ? "bg-[#5C2B92] text-white" : "bg-white text-[#5E4C74]",
@@ -77,7 +84,9 @@ export function ArticleBrowser() {
               <h2 className="mt-2 text-lg font-bold leading-snug text-[#2C2140]">{article.title}</h2>
               <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#6D5B82]">{article.excerpt}</p>
               <p className="mt-3 text-xs text-[#8A7A9C]">
-                {article.date} · {article.minutes} 分钟 · {article.views}
+                <time dateTime={article.date.replaceAll("/", "-")}>{article.date}</time>
+                {" · "}
+                {article.minutes} 分钟
               </p>
             </Link>
           ))}
