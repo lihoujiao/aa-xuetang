@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { articles } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -14,13 +15,10 @@ const topics = [
   { id: "about", label: "关于我们" },
 ];
 
-export function ArticleBrowser({
-  initialTopic,
-  initialQuery,
-}: {
-  initialTopic?: string;
-  initialQuery?: string;
-}) {
+export function ArticleBrowser() {
+  const searchParams = useSearchParams();
+  const initialTopic = searchParams.get("topic") ?? undefined;
+  const initialQuery = searchParams.get("q") ?? undefined;
   const initial = topics.some((item) => item.id === initialTopic) ? initialTopic! : "all";
   const [topic, setTopic] = useState(initial);
   const [query, setQuery] = useState(initialQuery ?? "");

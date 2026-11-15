@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { MarketingShell } from "@/components/shell";
 import { ArticleBrowser } from "@/components/article-browser";
 
 export const metadata: Metadata = { title: "文章" };
 
-export default async function ArticlesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ topic?: string; q?: string }>;
-}) {
-  const params = await searchParams;
+export default function ArticlesPage() {
   return (
     <MarketingShell>
       <section className="mx-auto grid max-w-6xl items-end gap-6 px-4 pb-4 pt-12 md:grid-cols-[1fr_240px]">
@@ -30,7 +26,9 @@ export default async function ArticlesPage({
           </Link>
         </div>
       </section>
-      <ArticleBrowser initialTopic={params.topic} initialQuery={params.q} />
+      <Suspense fallback={null}>
+        <ArticleBrowser />
+      </Suspense>
     </MarketingShell>
   );
 }
