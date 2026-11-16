@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-export const siteUrl = "https://xuetang.fde100.com.cn";
-export const siteName = "AA 学堂";
+export const siteUrl = SITE_URL;
+export const siteName = SITE_NAME;
 
 export function absoluteUrl(path: string) {
   if (path === "/") return `${siteUrl}/`;

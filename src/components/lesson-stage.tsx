@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { chapters, kindLabel, type Lesson, type Chapter } from "@/lib/content";
 import { formatClock } from "@/lib/utils";
-import { useUser } from "@/lib/session";
+import { useMe } from "@/lib/session";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +17,7 @@ export function LessonStage({
   lesson: Lesson;
   inApp?: boolean;
 }) {
-  const user = useUser();
+  const user = useMe();
   const [shared, setShared] = useState(false);
   const canOpen = Boolean(user) && !lesson.locked;
 
@@ -71,7 +71,7 @@ export function LessonStage({
               <div className="w-full max-w-xl rounded-2xl bg-white p-4 text-sm text-[#4C3D62]">
                 <p className="font-semibold text-[#38254F]">演示播放位</p>
                 <p className="mt-1 leading-6">
-                  {user}，这一节在演示站里不播放外部视频。进度条只表示你已经打开过页面。
+                  {user?.nickname}，这一节在演示站里不播放外部视频。进度条只表示你已经打开过页面。
                 </p>
                 <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#F0E8F8]">
                   <div className="h-full w-1/5 rounded-full bg-[#5C2B92]" />

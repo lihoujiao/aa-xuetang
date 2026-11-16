@@ -1,33 +1,55 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 
-const KEY = "aa-user";
-const EVENT = "aa-session";
+export type SessionUser = {
+  id: string;
+  nickname: string;
+  phoneMasked: string;
+  wechatBound: boolean;
+};
 
-function subscribe(cb: () => void) {
-  window.addEventListener(EVENT, cb);
-  window.addEventListener("storage", cb);
-  return () => {
-    window.removeEventListener(EVENT, cb);
-    window.removeEventListener("storage", cb);
-  };
+type Listener = () => void;
+
+let cached: SessionUser | null | undefined;
+const listeners = new Set<Listener>();
+
+function emit() {
+  for (const listener of listeners) listener();
 }
 
-function snapshot() {
-  return localStorage.getItem(KEY);
+export async function refreshMe() {
+  try {
+    const res = await fetch("/api/me", { credentials: "include" });
+    const data = res.ok ? await res.json() : { user: null };
+    cached = data.user ?? null;
+  } catch {
+    cached = null;
+  }
+  emit();
+  return cached;
 }
 
-export function useUser() {
-  return useSyncExternalStore(subscribe, snapshot, () => null);
+export function setMe(user: SessionUser | null) {
+  cached = user;
+  emit();
 }
 
-export function signIn(name: string) {
-  localStorage.setItem(KEY, name.trim() || "学员");
-  window.dispatchEvent(new Event(EVENT));
+export function useMe() {
+  const [user, setUser] = useState<SessionUser | null | undefined>(cached);
+  useEffect(() => {
+    const listener = () => setUser(cached);
+    listeners.add(listener);
+    if (cached === undefined) void refreshMe();
+    else setUser(cached);
+    return () => {
+      listeners.delete(listener);
+    };
+  }, []);
+  return user;
 }
 
-export function signOut() {
-  localStorage.removeItem(KEY);
-  window.dispatchEvent(new Event(EVENT));
+export async function logout() {
+  await fetch("/api/logout", { method: "POST", credentials: "include" });
+  setMe(null);
 }

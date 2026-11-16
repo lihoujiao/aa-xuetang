@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMe } from "@/lib/session";
 
 const NAV = [
   { href: "/", label: "首页", en: "Home" },
@@ -60,6 +61,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          <AccountLink />
           <button
             type="button"
             onClick={() => setEn((v) => !v)}
@@ -114,6 +116,7 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+            <AccountLink className="rounded-2xl px-3 py-3 text-sm font-medium text-[#3C245F]" onNavigate={() => setOpen(false)} />
             <Link
               href="/membership"
               onClick={() => setOpen(false)}
@@ -125,5 +128,21 @@ export function SiteHeader() {
         </div>
       )}
     </header>
+  );
+}
+
+function AccountLink({ className, onNavigate }: { className?: string; onNavigate?: () => void }) {
+  const user = useMe();
+  if (user) {
+    return (
+      <Link href="/c/profile" onClick={onNavigate} className={className ?? "hidden h-9 items-center rounded-full px-3 text-[13px] font-semibold text-[#5C2B92] hover:bg-[#EFE6F8] sm:inline-flex"}>
+        {user.nickname}
+      </Link>
+    );
+  }
+  return (
+    <Link href="/login" onClick={onNavigate} className={className ?? "hidden h-9 items-center rounded-full px-3 text-[13px] font-semibold text-[#5E4C74] hover:bg-[#EFE6F8] sm:inline-flex"}>
+      登录
+    </Link>
   );
 }
