@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { news } from "@/lib/content";
-import { useUser } from "@/lib/session";
+import { useMe } from "@/lib/session";
 import { Button } from "@/components/ui/button";
 
 export default function ChatPage() {
-  const user = useUser();
+  const user = useMe();
   const hour = new Date().getHours();
   const hello = hour < 5 ? "夜深了" : hour < 11 ? "早上好" : hour < 18 ? "下午好" : "晚上好";
   const [text, setText] = useState("");
@@ -18,7 +18,7 @@ export default function ChatPage() {
     <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-4 py-8">
       <p className="text-sm text-[#8A7A9C]">{new Date().toLocaleDateString("zh-CN", { weekday: "long", month: "long", day: "numeric" })}</p>
       <h1 className="mt-2 text-4xl font-black text-[#38254F]">
-        {hello}，{user || "访客"}
+        {hello}，{user?.nickname || "访客"}
       </h1>
       <div className="mt-6 flex-1 space-y-3">
         {messages.length === 0 && (
