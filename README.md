@@ -20,6 +20,11 @@ npm run dev
 - `npm run start` 运行构建结果
 - `npm run lint` ESLint
 
-登录只把称呼记在这台浏览器里，不会发短信，也不会创建远程账号。
+登录使用手机短信验证码。接口在 Cloudflare Worker 里，说明见 `cloudflare/README.md`。本地模拟发码：
+
+```bash
+npm run worker:build
+SMS_MOCK=1 node cloudflare/dev-server.mjs
+```
 
 结构说明见 `docs/site-structure.md`、`docs/sitemap.md`、`docs/content-inventory.md`。
