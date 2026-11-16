@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useUser } from "@/lib/session";
+import { useMe } from "@/lib/session";
 
 const items = [
   { href: "/c", label: "对话", icon: MessageSquare, exact: true },
@@ -26,7 +26,7 @@ const items = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const user = useUser();
+  const user = useMe();
   const [notice, setNotice] = useState(false);
 
   return (
@@ -80,7 +80,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           title="我的"
           className="grid size-10 place-items-center rounded-full bg-[#E7D8F8] text-xs font-bold text-[#5C2B92]"
         >
-          {(user || "客").slice(0, 1)}
+          {(user?.nickname || "客").slice(0, 1)}
         </Link>
         {notice && (
           <div className="absolute bottom-16 left-16 z-30 w-64 rounded-2xl border border-[#E7DFF1] bg-white p-3 text-sm shadow-xl">
